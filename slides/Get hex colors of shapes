@@ -1,0 +1,26 @@
+function gethexcolors() {
+  // Open the presentation by its ID
+  const deck = SlidesApp.openById('1hgcll9E9c7BBnHzde8__uCYiJRVk10nOtWgySrRRV3E');
+  const slides = deck.getSlides();
+
+  slides.forEach(slide => {
+    const shapes = slide.getPageElements();
+    shapes.forEach(shape => {
+      if (shape.getPageElementType() === SlidesApp.PageElementType.SHAPE) {
+        //const shapeId = shape.getObjectId(); // Get the shape's ID
+        const fill = shape.asShape().getFill();
+        const fillType = fill.getType();
+        if (fillType == SlidesApp.FillType.SOLID) {
+                const color = fill.getSolidFill().getColor();
+                if (color.getColorType() === SlidesApp.ColorType.RGB) {
+                  const rgbColor = color.asRgbColor().asHexString(); // Get the RGB hex string
+
+                  // Set the text color to match the shape's fill color
+                  const textRange = shape.asShape().getText();
+                    textRange.setText(rgbColor);
+                  
+                }
+              }
+            }})
+            });
+}
